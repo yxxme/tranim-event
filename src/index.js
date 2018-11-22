@@ -126,14 +126,12 @@ const TranimEvent = {
     detectEventName();
     let flag = true;
 
-    if (transitionendEventName) {
-      eventAdd(el, transitionendEventName, function (e) {
-        if (flag) {
-          flag = false;
-          handler(e);
-        }
-      });
-    }
+    return transitionendEventName ? eventAdd(el, transitionendEventName, function (e) {
+      if (flag) {
+        flag = false;
+        handler(e);
+      }
+    }) : false;
 
   },
   onceAnimationEnd: function (el, handler) {
@@ -141,14 +139,12 @@ const TranimEvent = {
     detectEventName();
     let flag = true;
 
-    if (animationendEventName) {
-      eventAdd(el, animationendEventName, function (e) {
-        if (flag) {
-          flag = false;
-          handler(e);
-        }
-      });
-    }
+    return animationendEventName ? eventAdd(el, animationendEventName, function (e) {
+      if (flag) {
+        flag = false;
+        handler(e);
+      }
+    }) : false;
 
   }
 };
