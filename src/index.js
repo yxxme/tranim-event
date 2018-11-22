@@ -121,10 +121,34 @@ const TranimEvent = {
     return transitionendEventName ? eventRemove(el, transitionendEventName, handler) : false;
 
   },
-  oneTransitionEnd: function (el, handler) {
+  onceTransitionEnd: function (el, handler) {
 
     detectEventName();
-    return transitionendEventName ? eventAdd(el, transitionendEventName, handler) : false;
+    let flag = true;
+
+    if (transitionendEventName) {
+      eventAdd(el, transitionendEventName, function (e) {
+        if (flag) {
+          flag = false;
+          handler(e);
+        }
+      });
+    }
+
+  },
+  onceAnimationEnd: function (el, handler) {
+
+    detectEventName();
+    let flag = true;
+
+    if (animationendEventName) {
+      eventAdd(el, animationendEventName, function (e) {
+        if (flag) {
+          flag = false;
+          handler(e);
+        }
+      });
+    }
 
   }
 };

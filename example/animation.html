@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Example</title>
+  <style>
+    @keyframes mymove {
+      0% {left:0;}
+      100% {left:200px;}
+    }
+    @keyframes myshake {
+      0% {width: 10px;height: 10px;transform: rotate(0deg)}
+      100% {width: 100px;height: 100px;transform: rotate(360deg)}
+    }
+    .animation-element {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background-color: blue;
+      color: #fff;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .animation-element .child {
+      width: 100px;
+      height: 100px;
+      background-color: green;
+      margin-left: 50px;
+      margin-top: 50px;
+    }
+    .animation-element.active {
+      animation:mymove 5s forwards;
+    }
+    .animation-element.active .child {
+      animation:myshake 5s forwards;
+    }
+  </style>
+</head>
+<body>
+
+<div><button type="button" id="run">RUN</button></div>
+<br>
+<div id="animation-element" class="animation-element">
+  <div class="child">animation</div>
+</div>
+
+<script src="../lib/tranim-event.js"></script>
+<script>
+
+  var aEle = document.querySelector('#animation-element');
+  var run = document.querySelector('#run');
+  run.addEventListener('click', function (e) {
+    if (TranimEvent.animationSupport()) {
+      TranimEvent.onceAnimationEnd(aEle, function (e) {
+        console.log(e)
+      })
+    }
+
+    aEle.className = aEle.className + ' ' + 'active';
+  }, false)
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Example</title>
+  <style>
+    .transition-element {
+      width: 100px;
+      height: 100px;
+      background-color: blue;
+      color: #fff;
+      cursor: pointer;
+      transition: all 5s;
+    }
+    .transition-element.active {
+      width: 300px;
+      height: 300px;
+      background-color: red;
+      transform: translateX(100px);
+    }
+  </style>
+</head>
+<body>
+
+<div><button type="button" id="run">RUN</button></div>
+<br>
+<div id="transition-element-1" class="transition-element">transition</div>
+
+<script src="../lib/tranim-event.js"></script>
+<script>
+
+  var tEle1 = document.querySelector('#transition-element-1');
+  var run = document.querySelector('#run');
+  run.addEventListener('click', function (e) {
+    tEle1.className = tEle1.className + ' ' + 'active';
+
+    if (TranimEvent.transitionSupport()) {
+      TranimEvent.onceTransitionEnd(tEle1, function (e) {
+        console.log(e)
+      })
+    }
+  }, false)
+
+</script>
+
+</body>
+</html>
